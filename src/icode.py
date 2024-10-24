@@ -29,7 +29,7 @@ def connect_to_database():
             host="taptime.ccvfbf5xwxwq.us-west-2.rds.amazonaws.com",
             user="developer",
             password="Arjavapass01#",
-            database="taptimeprod",
+            database="taptimedev",
             cursorclass=pymysql.cursors.DictCursor 
         )
         return connection
@@ -289,7 +289,7 @@ async def get_customer_by_id(customer_id: str):
             else:
                 return {"error": "Customer id not found"}
 
-    except pymysql.connector.Error as err:
+    except pymysql.Error as err:
         print(f"Error calling stored procedure: {err}")
         return {"error": str(err)}
     finally:
@@ -355,7 +355,7 @@ async def create_customer(customer = Body(...)):
 
                 return {"message": "Customer created successfully", "CustomerID": customer_id}
 
-    except pymysql.connector.Error as err:
+    except pymysql.Error as err:
         print(f"Error calling stored procedure: {err}")
         return {"error": str(err)}
     finally:
@@ -388,7 +388,7 @@ async def delete_customer(customer_id: str, LastModifiedBy: str):
             else:
                 return {"error": "Customer id not found", "CustomerID": customer_id}                
 
-    except pymysql.connector.Error as err:
+    except pymysql.Error as err:
         print(f"Error calling stored procedure: {err}")
         return {"error": str(err)}
     finally:
@@ -431,7 +431,7 @@ async def update_customer(customer_id: str, customer = Body(...)):
             else:
                 return {"error": "Customer id not found", "CustomerID": customer_id} 
 
-    except pymysql.connector.Error as err:
+    except pymysql.Error as err:
         print(f"Error calling stored procedure: {err}")
         return {"error": str(err)}
     finally:
